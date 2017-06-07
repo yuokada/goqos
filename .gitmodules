@@ -1,0 +1,3 @@
+[submodule "qcon"]
+	path = qcon
+	url = https://github.com/matsumotory/qos-control.git
