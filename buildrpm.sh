@@ -12,6 +12,10 @@ ARCHIVE_DIR=${WORK_DIR}/${BUILD_NAME}
 /bin/mkdir -p ${BUILD_DIR}/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 
 /usr/bin/git archive -v --format=tar.gz --prefix=${BUILD_NAME}/ HEAD -o ${BUILD_TAR}
+
+# Add submodule
+gunzip ${BUILD_NAME}.tar.gz && tar -uf ${BUILD_NAME}.tar qcon  && gzip ${BUILD_NAME}.tar
+
 /bin/mv -f ${BUILD_TAR} ${WORK_DIR}/rpmbuild/SOURCES/
 
 /usr/bin/rpmbuild --define "release ${BUILD_NUMBER}%{?dist}" --define "_topdir ${BUILD_DIR}" -bb ${BUILD_SPEC}
