@@ -25,6 +25,9 @@ const (
 
 var debug bool
 
+var version, revision string
+
+
 type Direction struct {
 	id        int
 	direction string
@@ -366,9 +369,10 @@ func parseQosConfigfile(contents []byte) (map[string]interface{}, error) {
 func versionCmd(args []string) {
 	fs := flag.NewFlagSet(os.Args[1], flag.ExitOnError)
 	fs.Usage = func() {
-		fmt.Println("Usage: goqos [global flags] <TODO> [command flags]")
+		fmt.Println("Usage: goqos [global flags] <set|view|clear> [command flags]")
 	}
 	fs.Usage()
+	fmt.Printf("Version: %s (%s)\n", version, revision)
 	os.Exit(0)
 }
 
