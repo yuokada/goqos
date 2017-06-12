@@ -8,7 +8,7 @@ GOQOS_REVISION=$(shell git rev-parse --verify HEAD)
 goget:
 	if [ ! -e $(GOPATH) ]; then \
 		mkdir $(GOPATH) ;\
-		@GOPATH=$(GOPATH) go get github.com/pkg/errors ; \
+		GOPATH=$(GOPATH) go get github.com/pkg/errors ; \
 	fi
 
 build: goget
