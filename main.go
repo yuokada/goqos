@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net"
 	"os"
@@ -231,7 +230,7 @@ func view(ip net.IP) {
 			if err != nil && !os.IsExist(err) {
 				continue
 			}
-			contents, err := ioutil.ReadFile(config_file)
+			contents, err := os.ReadFile(config_file)
 			if err != nil {
 				continue
 			}
@@ -245,7 +244,7 @@ func view(ip net.IP) {
 		}
 	}
 	if len(outputs) != 0 {
-		fmt.Printf(strings.Join(outputs, ""))
+		fmt.Print(strings.Join(outputs, ""))
 	} else {
 		fmt.Println("nothing")
 	}
