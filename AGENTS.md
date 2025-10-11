@@ -11,7 +11,7 @@
 - `go mod tidy`: Refreshes `go.mod`/`go.sum` after adding or removing dependencies.
 
 ## Coding Style & Naming Conventions
-Always run `go fmt ./...` (or `gofmt`) before committing. Exported identifiers use PascalCase, internal identifiers use camelCase, and errors should be wrapped with `github.com/pkg/errors` to keep stack context. Shell scripts and spec files should follow POSIX syntax with consistent two-space indentation for YAML fragments.
+Always run `go fmt ./...` (or `gofmt`) before committing. Exported identifiers use PascalCase, internal identifiers use camelCase, and wrap errors with `fmt.Errorf("...: %w", err)` when propagating to preserve context. Shell scripts and spec files should follow POSIX syntax with consistent two-space indentation for YAML fragments.
 
 ## Testing Guidelines
 There are no `_test.go` files yet, so accompany new logic with table-driven tests and keep `go test ./...` green. Abstract system-dependent behavior behind interfaces so you can mock `tc` calls in unit tests. At minimum, cover representative `set` and `clear` scenarios to prevent regressions in traffic control rules.
