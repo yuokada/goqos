@@ -9,6 +9,7 @@
 - `make rpm`: Runs `buildrpm.sh` to assemble RPM outputs inside `rpm/` and `rpmbuild/`.
 - `go run .` / `./goqos set ...`: Exercise the CLI locally; combine with `view` and `clear` to verify end-to-end flows.
 - `go mod tidy`: Refreshes `go.mod`/`go.sum` after adding or removing dependencies.
+Use Go 1.24.x (managed via `.tool-versions` or `actions/setup-go`) to match the CI environment.
 
 ## Coding Style & Naming Conventions
 Always run `go fmt ./...` (or `gofmt`) before committing. Exported identifiers use PascalCase, internal identifiers use camelCase, and wrap errors with `fmt.Errorf("...: %w", err)` when propagating to preserve context. Shell scripts and spec files should follow POSIX syntax with consistent two-space indentation for YAML fragments.

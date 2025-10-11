@@ -245,7 +245,7 @@ func view(ip net.IP) {
 		}
 	}
 	if len(outputs) != 0 {
-		fmt.Printf(strings.Join(outputs, ""))
+		fmt.Print(strings.Join(outputs, ""))
 	} else {
 		fmt.Println("nothing")
 	}
