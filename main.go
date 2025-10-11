@@ -141,7 +141,7 @@ func setCmd(args []string) {
 	}
 	writeConfigfile(config_file, r)
 
-	fmt.Println("\nSetting ... \nOK\n")
+	fmt.Print("\nSetting ... \nOK\n")
 
 	time.Sleep(1 * time.Second)
 	cmd := exec.Command(QOS_INIT, "restart")
@@ -298,7 +298,7 @@ func clearCmd(args []string) {
 		return
 	}
 
-	fmt.Println("\nSetting Clear ... \nOK\n")
+	fmt.Print("\nSetting Clear ... \nOK\n")
 	fmt.Printf("*** current [%s] settings ***\n", ip_s)
 	fmt.Println("--------------------------")
 	view(ip)
