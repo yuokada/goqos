@@ -4,10 +4,11 @@
 `main.go` hosts the CLI entry point, handles the `set`/`view`/`clear` subcommand flow, and injects the build metadata. The helper script `bin/qos.sh` calls `tc` and related system tools on behalf of the binary. Service boot artifacts live under `etc/rc.d/init.d` and `etc/sysconfig` for CentOS-style deployments. RPM packaging assets are grouped in `buildrpm.sh` and `rpm/goqos.spec`, while the `Dockerfile` recreates the CentOS 7 toolchain required for reproducible RPM builds.
 
 ## Build, Test, and Development Commands
-- `make build`: Fetches dependencies if needed and produces the binary with tag and commit embedded via `-ldflags`.
+- `make build`: Produces the binary with tag and commit embedded via `-ldflags` using Go modules.
 - `make build_linux`: Cross-compiles the CLI for Linux/amd64 from macOS or other hosts.
 - `make rpm`: Runs `buildrpm.sh` to assemble RPM outputs inside `rpm/` and `rpmbuild/`.
 - `go run .` / `./goqos set ...`: Exercise the CLI locally; combine with `view` and `clear` to verify end-to-end flows.
+- `go mod tidy`: Refreshes `go.mod`/`go.sum` after adding or removing dependencies.
 
 ## Coding Style & Naming Conventions
 Always run `go fmt ./...` (or `gofmt`) before committing. Exported identifiers use PascalCase, internal identifiers use camelCase, and errors should be wrapped with `github.com/pkg/errors` to keep stack context. Shell scripts and spec files should follow POSIX syntax with consistent two-space indentation for YAML fragments.
