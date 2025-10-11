@@ -13,8 +13,6 @@ import (
 	"strings"
 	"text/template"
 	"time"
-
-	"github.com/pkg/errors"
 )
 
 const (
@@ -26,7 +24,6 @@ const (
 var debug bool
 
 var version, revision string
-
 
 type Direction struct {
 	id        int
@@ -127,7 +124,7 @@ func setCmd(args []string) {
 
 	cls_id, err := getClassId(ip, protocol, direction)
 	if err != nil {
-		log.Println(errors.Wrap(err, ""))
+		log.Println(err)
 		return
 	}
 	filename := fmt.Sprintf("qos-%s.%s_%s",
@@ -144,7 +141,7 @@ func setCmd(args []string) {
 	}
 	writeConfigfile(config_file, r)
 
-	fmt.Println("\nSetting ... \nOK\n")
+	fmt.Print("\nSetting ... \nOK\n")
 
 	time.Sleep(1 * time.Second)
 	cmd := exec.Command(QOS_INIT, "restart")
@@ -173,13 +170,13 @@ func writeConfigfile(config_file string, p ConfigVariables) {
 	t := template.Must(template.New("configfile").Parse(tpl))
 	f, err := os.OpenFile(config_file, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
 	if err != nil {
-		log.Println("os.Create: ", errors.WithStack(err))
+		log.Println("os.Create:", err)
 		return
 	}
 	defer f.Close()
 	err = t.Execute(f, p)
 	if err != nil {
-		log.Println("executing template:", errors.WithStack(err))
+		log.Println("executing template:", err)
 	}
 }
 
@@ -301,7 +298,7 @@ func clearCmd(args []string) {
 		return
 	}
 
-	fmt.Println("\nSetting Clear ... \nOK\n")
+	fmt.Print("\nSetting Clear ... \nOK\n")
 	fmt.Printf("*** current [%s] settings ***\n", ip_s)
 	fmt.Println("--------------------------")
 	view(ip)
@@ -317,6 +314,7 @@ func formatOutput(cls_id string, m map[string]interface{}) string {
 		m["server_ip_port"],
 		m["src_ip"])
 }
+
 // getClassId is convert class(number) from ip , protocol and direct
 func getClassId(ip net.IP, protocol, direct string) (string, error) {
 	d_num := DirectionList[direct].id
